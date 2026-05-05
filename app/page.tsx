@@ -1,4 +1,5 @@
-import { GitHubIcon, LinkedInIcon, MailIcon, ArrowUpRightIcon, BriefcaseIcon, AwardIcon } from "./components/icons";
+import { GitHubIcon, LinkedInIcon, MailIcon, ArrowUpRightIcon, BriefcaseIcon } from "./components/icons";
+import CertificationsGrid from "./components/certifications-grid";
 import ContactForm from "./components/contact-form";
 
 /* ═══════════════════════════════════════════
@@ -105,6 +106,13 @@ const skillCategories = [
 ];
 
 const certifications = [
+  {
+    title: "RAG for Production with LangChain & LlamaIndex",
+    issuer: "Activeloop / Towards AI / Intel",
+    date: "May 2026",
+    description:
+      "Covers building production-ready RAG systems using LangChain and LlamaIndex, including advanced retrieval methods, RAG agents, evaluation metrics, observability, and reducing hallucinations. Includes 40+ lessons and 7 hands-on projects spanning legal, financial, and biomedical domains.",
+  },
   {
     title: "RAG Bootcamp",
     issuer: "Udemy",
@@ -449,37 +457,7 @@ export default function Home() {
             Credentials & courses
           </h2>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2">
-            {certifications.map((cert) => (
-              <div
-                key={cert.title}
-                className="group rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-accent/40 hover:bg-card-hover hover:shadow-[0_8px_40px_rgba(139,69,19,0.06)]"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <AwardIcon className="h-5 w-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="text-base font-semibold leading-snug">
-                      {cert.title}
-                    </h3>
-                    <p className="mt-1 flex items-center gap-2 text-sm text-accent">
-                      {cert.issuer}
-                      <span className="text-muted">·</span>
-                      <span className="font-mono text-xs text-muted">
-                        {cert.date}
-                      </span>
-                    </p>
-                    {cert.description && (
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                        {cert.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <CertificationsGrid certifications={certifications} />
         </div>
       </section>
 
