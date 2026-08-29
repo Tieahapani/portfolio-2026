@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f0e8;
-  --foreground: #1a1a1a;
-  --accent: #8B4513;
-  --accent-hover: #6F3710;
-  --accent-glow: rgba(139, 69, 19, 0.10);
-  --muted: #8c8377;
-  --muted-foreground: #6b6358;
-  --border: #e0d8cc;
-  --card: #ede7db;
-  --card-hover: #e8e0d2;
-  --surface: #eae3d6;
-  --surface-light: #e2dacb;
+  --background: #faf6ef;
+  --foreground: #1c1917;
+  --accent: #c2510a;
+  --accent-hover: #9a3f06;
+  --accent-glow: rgba(194, 81, 10, 0.1);
+  --muted: #8a8075;
+  --muted-foreground: #57534e;
+  --border: #e7dfd2;
+  --card: #ffffff;
+  --card-hover: #fdfbf7;
+  --surface: #f1eae0;
+  --surface-light: #ece4d7;
 }
 
 @theme inline {
@@ -28,14 +28,14 @@
   --color-card-hover: var(--card-hover);
   --color-surface: var(--surface);
   --color-surface-light: var(--surface-light);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-mono: var(--font-mono-custom), ui-monospace, monospace;
 
   --animate-fade-in: fade-in 0.8s ease-out both;
-  --animate-fade-in-up: fade-in-up 0.8s ease-out both;
-  --animate-fade-in-left: fade-in-left 0.7s ease-out both;
-  --animate-slide-in: slide-in 0.6s ease-out both;
-  --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+  --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+  --animate-hero-word: hero-word 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+  --animate-marquee: marquee 30s linear infinite;
 }
 
 @keyframes fade-in {
@@ -48,25 +48,50 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fade-in-left {
-  from { opacity: 0; transform: translateX(-20px); }
-  to { opacity: 1; transform: translateX(0); }
+@keyframes hero-word {
+  from { opacity: 0; transform: translateY(28px); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
-@keyframes slide-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
-@keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
-  50% { box-shadow: 0 0 40px var(--accent-glow), 0 0 60px rgba(139, 69, 19, 0.06); }
+/* Scroll reveal (driven by app/components/reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s cubic-bezier(0.2, 0.6, 0.2, 1),
+    transform 0.5s cubic-bezier(0.2, 0.6, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
 }
 
 html {
@@ -77,4 +102,36 @@ html {
 ::selection {
   background: var(--accent);
   color: white;
+}
+
+/* Hero skills marquee */
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-mask:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Editorial link underline */
+.link-underline {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease;
+}
+
+.link-underline:hover {
+  background-size: 100% 1px;
 }

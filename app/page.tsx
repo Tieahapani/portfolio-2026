@@ -1,6 +1,7 @@
 import { GitHubIcon, LinkedInIcon, MailIcon, ArrowUpRightIcon, BriefcaseIcon } from "./components/icons";
 import CertificationsGrid from "./components/certifications-grid";
 import ContactForm from "./components/contact-form";
+import Reveal from "./components/reveal";
 
 /* ═══════════════════════════════════════════
    EDIT YOUR CONTENT BELOW
@@ -8,14 +9,17 @@ import ContactForm from "./components/contact-form";
 
 const projects = [
   {
-    title: "ASGo",
+    title: "Portfolio Coach",
     description:
-      "Built for Associated Students at SFSU to solve one problem: travelers have nowhere to see their trip spending or store their receipts. ASGo lets travelers view their active, upcoming, and completed trips, scan receipts, and see exactly where expenses are being made and under which trip. Everything syncs to Notion, the main platform for storing traveler records. Admins can also create and view trips from an analytics dashboard. Currently building and launching a beta version to test it out.",
-    bullets: [],
-    tags: ["Flutter", "Python Flask", "Azure OCR", "Gemini", "Notion API", "SQLAlchemy"],
-    liveUrl: "#",
-    githubUrl: "#",
-    highlight: true,
+      "Analyzes your GitHub profile against real job market demand and tells you exactly what to build next — then tracks whether you actually build it. Reads your public repos, compares them against live job postings for your target role, recommends specific gap-filling projects, and watches your commits once you accept one.",
+    bullets: [
+      "Built a function-calling Progress Coach agent (Gemini 2.5 Flash) that inspects your repo — file tree, README, commit history — in a capped tool-use loop and gives an honest assessment with your next three commits. It remembers its last assessment and reports what actually changed.",
+      "Peer matching via vector search: user profiles are embedded (OpenAI text-embedding-3-small) and stored in ChromaDB, with similar and complementary modes plus a concrete collaboration project idea.",
+      "No webhooks — a 30-minute background loop auto-detects new repos, commit activity (active / stalled / completed), and collaborators, so pages load instantly from SQLite. GitHub OAuth + signed JWT sessions with rate-limited AI endpoints.",
+    ],
+    tags: ["Python", "FastAPI", "Gemini 2.5 Flash", "ChromaDB", "SQLite", "GitHub OAuth"],
+    liveUrl: "http://portfolio-coach.duckdns.org",
+    githubUrl: "https://github.com/Tieahapani/Portfolio-Coach",
   },
   {
     title: "TrustKey",
@@ -28,7 +32,6 @@ const projects = [
     tags: ["React 19", "TypeScript", "Node.js", "MongoDB", "Firebase", "Vite"],
     liveUrl: "https://trustkey-two.vercel.app/",
     githubUrl: "https://github.com/Tieahapani/TrustKey-Hackthaon-2026",
-    highlight: false,
   },
   {
     title: "AskLangChain",
@@ -42,7 +45,6 @@ const projects = [
     tags: ["Python", "LangChain", "LangGraph", "LangSmith", "Streamlit", "Gemini"],
     liveUrl: "https://asklangchain-beo4m5dnjb6qrtah4kterp.streamlit.app/",
     githubUrl: "https://github.com/Tieahapani/AskLangchain",
-    highlight: false,
   },
   {
     title: "RAGMeeting",
@@ -55,20 +57,28 @@ const projects = [
     tags: ["React 19", "FastAPI", "LangGraph", "PGVector", "Whisper", "Gemini"],
     liveUrl: "https://rag-meeting-afwu.vercel.app/",
     githubUrl: "https://github.com/Tieahapani/RagMeeting",
-    highlight: false,
   },
 ];
 
 const experience = [
   {
+    role: "Production Engineering Fellow",
+    company: "Meta via MLH Fellowship",
+    period: "Jun 2026 — Aug 2026",
+    points: [
+      "Built Redis caching and Prometheus/Grafana monitoring pipelines, maintaining 99.9%+ uptime.",
+      "Provisioned and managed Linux VPS environments, debugging service failures and production deployments — containerized a Flask portfolio site with Docker Compose behind an nginx reverse proxy with HTTPS via certbot.",
+      "Implemented integration tests validating homepage rendering, image assets, and critical application functionality, wired into a CI/CD deploy workflow with a test gate, Discord notifications, and failure alerts.",
+    ],
+  },
+  {
     role: "Senior Office Assistant",
     company: "Associated Students, San Francisco State University",
     period: "Aug 2024 — Present",
     points: [
-      "Manage day-to-day office operations including scheduling, document processing, data entry, and cross-department coordination for a student government serving 100+ students.",
-      "Built end-to-end automation pipelines using Make.com, Zapier, and Azure OCR for receipt data extraction, cutting manual processing time by 40% and increasing audit accuracy.",
-      "Architected a Notion ecosystem tracking document approvals and lifecycle logic across 10 departments, replacing fragmented spreadsheet workflows.",
-      "Currently leading the development of ASGo, an internal travel expense management app to replace manual receipt tracking and spending visibility gaps across the organization.",
+      "Eliminated 40% of admin processing time deploying Make.com and Zapier automation, saving 10+ hours/week.",
+      "Compressed audit prep from 2 weeks to 3 days by automating receipt review with Azure OCR.",
+      "Architected a Notion-based document lifecycle system adopted across 4 departments.",
     ],
   },
   {
@@ -84,28 +94,46 @@ const experience = [
 
 const skillCategories = [
   {
-    name: "Programming Languages",
-    skills: ["Python", "Dart", "Java", "JavaScript", "TypeScript", "HTML/CSS", "SQL", "C++"],
+    name: "Languages",
+    skills: ["Python", "Dart", "Java", "JavaScript", "TypeScript", "SQL", "HTML/CSS"],
   },
   {
     name: "AI/ML",
-    skills: ["Gemini AI", "Google ADK", "Claude Code", "Cursor", "Prompt Engineering", "Azure OCR", "Multi-Agent Systems", "Vertex AI Memory", "Generative AI", "NLP", "Recommendation Systems", "Vector Search", "Vector Databases", "RAG"],
+    skills: ["LangChain", "LangGraph", "RAG", "Multi-Agent Systems", "Gemini AI", "Google ADK", "Claude", "Vertex AI", "Prompt Engineering", "NLP", "Vector Search", "LangSmith"],
   },
   {
     name: "Frameworks",
-    skills: ["Flutter", "Flask", "React", "Node.js", "Express", "Firebase", "PyTorch", "Pandas", "TensorFlow", "NumPy", "LangChain", "LangGraph", "Pydantic"],
+    skills: ["Flutter", "Flask", "FastAPI", "React", "Node.js", "Express", "PyTorch", "Pandas", "NumPy"],
   },
   {
     name: "Databases",
-    skills: ["MongoDB", "PostgreSQL", "Firebase Firestore", "Isar", "SQLite", "Pinecone", "FAISS", "ChromaDB"],
+    skills: ["MongoDB", "PostgreSQL", "Firebase Firestore", "FAISS", "PGVector", "SQLite", "Isar"],
   },
   {
-    name: "Tools & Platforms",
-    skills: ["Git", "Docker", "Render", "Vercel", "n8n", "Low-code", "Apple Speech Framework", "Make.com", "Zapier", "Google Cloud", "Azure", "GCP", "LangSmith"],
+    name: "DevOps & Infra",
+    skills: ["Git", "Docker", "Linux", "Bash", "Render", "Vercel", "GCP", "Azure", "Streamlit"],
+  },
+  {
+    name: "Automation",
+    skills: ["Make.com", "Zapier", "Notion"],
   },
 ];
 
 const certifications = [
+  {
+    title: "Memory for AI Applications with MongoDB",
+    issuer: "MongoDB",
+    date: "Aug 2026",
+    description:
+      "Covers building memory systems for AI applications using MongoDB, including persisting conversational and agent state, vector databases for semantic retrieval, and designing AI agents that recall and reason over prior context.",
+  },
+  {
+    title: "MongoDB AI Agents with LangChain",
+    issuer: "MongoDB",
+    date: "Aug 2026",
+    description:
+      "Covers building AI agents with LangChain and MongoDB, including agent architectures, tool use, MongoDB Atlas Vector Search for retrieval, and integrating persistent storage into agentic workflows.",
+  },
   {
     title: "RAG for Production with LangChain & LlamaIndex",
     issuer: "Activeloop / Towards AI / Intel",
@@ -143,6 +171,19 @@ const certifications = [
   },
 ];
 
+const heroSkills = [
+  "Python",
+  "LangChain",
+  "LangGraph",
+  "RAG",
+  "FastAPI",
+  "Flutter",
+  "React",
+  "MongoDB",
+  "Docker",
+  "GCP",
+];
+
 const socialLinks = [
   { icon: GitHubIcon, href: "https://github.com/", label: "GitHub" },
   { icon: LinkedInIcon, href: "https://linkedin.com/in/", label: "LinkedIn" },
@@ -158,60 +199,87 @@ export default function Home() {
     <>
       {/* ── HERO ── */}
       <section className="relative flex min-h-screen items-center overflow-hidden">
-        {/* Gradient orb background */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -left-40 top-1/4 h-[500px] w-[500px] rounded-full bg-accent/[0.06] blur-[120px]" />
-          <div className="absolute -right-40 bottom-1/4 h-[400px] w-[400px] rounded-full bg-accent/[0.04] blur-[100px]" />
-        </div>
+        {/* Subtle paper texture line */}
+        <div className="pointer-events-none absolute inset-y-0 right-[12%] hidden w-px bg-border lg:block" />
 
-        <div className="relative mx-auto max-w-6xl px-6 py-32">
-          <div className="max-w-3xl">
-            <h1 className="animate-fade-in-up text-5xl font-bold leading-[1.1] tracking-tight sm:text-7xl">
-              Hey, I&apos;m{" "}
-              <span className="bg-gradient-to-r from-accent to-accent-hover bg-clip-text text-transparent">
-                Tiea
-              </span>
-              <span className="text-accent">.</span>
-            </h1>
-            <p className="animate-fade-in-up mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground [animation-delay:200ms]">
-              CS junior at SFSU building AI systems — multi-agent workflows,
-              RAG pipelines, and intelligent automation. Currently a Senior
-              Office Assistant at Associated Students, SFSU.
-            </p>
-            <div className="animate-fade-in-up mt-10 flex flex-wrap gap-4 [animation-delay:400ms]">
+        <div className="relative mx-auto w-full max-w-6xl px-6 py-32 text-center">
+          <p className="animate-hero-word font-mono text-xs uppercase tracking-[4px] text-muted-foreground">
+            From Concept to Production
+          </p>
+
+          <h1 className="mt-6 font-display text-[clamp(3rem,9vw,6.5rem)] font-semibold leading-[1.02] tracking-tight">
+            <span className="animate-hero-word inline-block [animation-delay:120ms]">
+              Tiea Hapani
+            </span>
+          </h1>
+
+          <p className="animate-hero-word mt-5 font-mono text-sm tracking-wide text-muted-foreground [animation-delay:280ms] sm:text-base">
+            AI/ML Engineer <span className="text-accent">/</span> Builder{" "}
+            <span className="text-accent">/</span> CS @ SFSU
+          </p>
+
+          <p className="animate-fade-in-up mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground [animation-delay:440ms] sm:text-xl">
+            I build{" "}
+            <span className="font-semibold text-accent">production-grade AI systems</span>{" "}
+            and study why agentic AI fails in production — then engineer around it.
+          </p>
+
+          <div className="mt-10">
+            <div className="animate-fade-in-up flex flex-wrap justify-center gap-4 [animation-delay:600ms]">
               <a
                 href="#projects"
-                className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-medium text-white transition-all hover:bg-accent-hover hover:shadow-[0_0_30px_rgba(139,69,19,0.2)]"
+                className="group inline-flex items-center gap-2 bg-foreground px-7 py-3.5 text-sm font-medium text-background transition-colors hover:bg-accent"
               >
                 View Projects
                 <ArrowUpRightIcon className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3 text-sm font-medium text-muted-foreground transition-all hover:border-accent/40 hover:text-foreground hover:bg-accent/[0.04]"
+                className="inline-flex items-center gap-2 border border-foreground/20 px-7 py-3.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
               >
                 Contact Me
               </a>
             </div>
           </div>
+
+          {/* Skills marquee */}
+          <div
+            className="animate-fade-in marquee-mask mt-20 overflow-hidden border-y border-border py-4 [animation-delay:900ms]"
+            aria-label="Core technologies"
+          >
+            <div className="marquee-track flex w-max items-center gap-3">
+              {[...heroSkills, ...heroSkills].map((skill, i) => (
+                <span
+                  key={i}
+                  aria-hidden={i >= heroSkills.length}
+                  className="flex items-center gap-3 whitespace-nowrap font-mono text-xs uppercase tracking-[2px] text-muted-foreground"
+                >
+                  {skill}
+                  <span className="h-1 w-1 rounded-full bg-accent/50" />
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="animate-fade-in absolute bottom-10 left-1/2 -translate-x-1/2 [animation-delay:1s]">
+        <div className="animate-fade-in absolute bottom-10 left-1/2 -translate-x-1/2 [animation-delay:1.2s]">
           <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] uppercase tracking-[3px] text-muted">Scroll</span>
+            <span className="font-mono text-[10px] uppercase tracking-[3px] text-muted">Scroll</span>
             <div className="h-8 w-px bg-gradient-to-b from-muted/60 to-transparent" />
           </div>
         </div>
       </section>
 
       {/* ── ABOUT ── */}
-      <section id="about" className="relative py-28">
+      <section id="about" className="relative border-t border-border py-24 sm:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel>About Me</SectionLabel>
-          <div className="mt-12 grid gap-12 lg:grid-cols-5">
-            <div className="lg:col-span-3">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <Reveal className="lg:col-span-3">
+              <SectionLabel>01 — About</SectionLabel>
+            </Reveal>
+            <Reveal delay={100} className="lg:col-span-6">
+              <h2 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
                 A bit about myself
               </h2>
               <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-muted-foreground">
@@ -230,281 +298,261 @@ export default function Home() {
                   Outside of code, I spend my time journaling, exploring new
                   cities, and diving into books that challenge how I think. My
                   favourite book is{" "}
-                  <span className="text-accent font-medium italic">
+                  <span className="font-display italic text-accent">
                     The Almanack of Naval Ravikant
                   </span>
                   .
                 </p>
               </div>
-            </div>
-            <div className="flex items-start lg:col-span-2 lg:justify-end">
-              <div className="w-full max-w-xs rounded-2xl border border-border bg-card p-6">
-                <h3 className="text-sm font-medium uppercase tracking-widest text-muted">
+            </Reveal>
+            <Reveal delay={200} className="lg:col-span-3">
+              <div className="border-l-2 border-accent pl-6">
+                <h3 className="font-mono text-xs uppercase tracking-[3px] text-muted">
                   Quick facts
                 </h3>
-                <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-                  <li className="flex justify-between">
-                    <span>Location</span>
+                <ul className="mt-5 space-y-4 text-sm">
+                  <li>
+                    <span className="block font-mono text-[11px] uppercase tracking-wider text-muted">Location</span>
                     <span className="text-foreground">San Francisco, CA</span>
                   </li>
-                  <li className="flex justify-between">
-                    <span>Focus</span>
+                  <li>
+                    <span className="block font-mono text-[11px] uppercase tracking-wider text-muted">Focus</span>
                     <span className="text-foreground">AI/ML Engineering</span>
                   </li>
-                  <li className="flex justify-between">
-                    <span>Education</span>
+                  <li>
+                    <span className="block font-mono text-[11px] uppercase tracking-wider text-muted">Education</span>
                     <span className="text-foreground">SFSU — CS</span>
                   </li>
-                  <li className="flex justify-between">
-                    <span>Currently</span>
-                    <span className="text-accent">Building ASGo</span>
+                  <li>
+                    <span className="block font-mono text-[11px] uppercase tracking-wider text-muted">Currently</span>
+                    <span className="text-accent">Seeking AI/ML internships</span>
                   </li>
                 </ul>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <Divider />
-
       {/* ── PROJECTS ── */}
-      <section id="projects" className="py-28">
+      <section id="projects" className="border-t border-border py-24 sm:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel>Projects</SectionLabel>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Things I&apos;ve built
-          </h2>
-          <p className="mt-4 max-w-lg text-[15px] text-muted-foreground">
-            A selection of projects I&apos;ve worked on. Each one taught me
-            something new.
-          </p>
+          <Reveal>
+            <SectionLabel>02 — Projects</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+              Things I&apos;ve built
+            </h2>
+          </Reveal>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2">
-            {projects.map((project) => (
-              <div
-                key={project.title}
-                className={`group relative flex flex-col rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1 ${
-                  project.highlight
-                    ? "border-accent/25 bg-accent/[0.03] hover:border-accent/40 hover:shadow-[0_8px_40px_rgba(139,69,19,0.08)]"
-                    : "border-border bg-card hover:border-accent/40 hover:bg-card-hover hover:shadow-[0_8px_40px_rgba(139,69,19,0.06)]"
-                }`}
-              >
-                {/* Header: title + links */}
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    {project.highlight && (
-                      <span className="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-accent">
-                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                        In Development
-                      </span>
-                    )}
-                    <h3 className="text-xl font-bold tracking-tight transition-colors group-hover:text-accent">
+          {/* Projects: alternating asymmetric rows */}
+          <div className="mt-14 flex flex-col">
+            {projects.map((project, i) => (
+              <Reveal key={project.title} delay={i * 80}>
+                <article className="group grid gap-8 border-t border-border py-12 lg:grid-cols-5">
+                  <div className="lg:col-span-2">
+                    <span className="font-mono text-xs text-muted">
+                      0{i + 1}
+                    </span>
+                    <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight transition-colors group-hover:text-accent sm:text-3xl">
                       {project.title}
                     </h3>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-3">
-                    {project.liveUrl !== "#" && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span key={tag} className="rounded border border-border px-2.5 py-1 font-mono text-[11px] text-muted-foreground">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="mt-6 flex items-center gap-5">
+                      {project.liveUrl !== "#" && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link-underline inline-flex items-center gap-1.5 pb-0.5 text-sm font-medium text-accent"
+                        >
+                          Live demo <ArrowUpRightIcon />
+                        </a>
+                      )}
                       <a
-                        href={project.liveUrl}
+                        href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
+                        className="link-underline inline-flex items-center gap-1.5 pb-0.5 text-sm font-medium text-muted-foreground"
                       >
-                        Live <ArrowUpRightIcon />
+                        GitHub <ArrowUpRightIcon />
                       </a>
-                    )}
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
-                    >
-                      GitHub <ArrowUpRightIcon />
-                    </a>
+                    </div>
                   </div>
-                </div>
-
-                {/* Tags */}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-md bg-surface-light px-2.5 py-1 text-[11px] font-medium text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Summary */}
-                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                  {project.description}
-                </p>
-
-                {/* Bullet points */}
-                <ul className="mt-4 flex flex-col gap-3">
-                  {project.bullets.map((bullet, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2.5 text-sm leading-relaxed text-muted-foreground"
-                    >
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                  <div className="lg:col-span-3">
+                    <p className="text-[15px] leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+                    <ul className="mt-4 flex flex-col gap-3">
+                      {project.bullets.map((bullet, j) => (
+                        <li key={j} className="flex items-start gap-2.5 text-sm leading-relaxed text-muted-foreground">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/60" />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <Divider />
-
       {/* ── EXPERIENCE ── */}
-      <section id="experience" className="py-28">
+      <section id="experience" className="border-t border-border py-24 sm:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel>Experience</SectionLabel>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Where I&apos;ve worked
-          </h2>
+          <Reveal>
+            <SectionLabel>03 — Experience</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+              Where I&apos;ve worked
+            </h2>
+          </Reveal>
 
           <div className="relative mt-14">
-            {/* Timeline line */}
-            <div className="absolute left-[7px] top-2 bottom-2 w-px bg-gradient-to-b from-accent/40 via-border to-transparent md:left-[9px]" />
+            <div className="absolute bottom-2 left-[7px] top-2 w-px bg-gradient-to-b from-accent/40 via-border to-transparent md:left-[9px]" />
 
             <div className="flex flex-col gap-12">
               {experience.map((job, i) => (
-                <div key={i} className="relative pl-10 md:pl-12">
-                  {/* Timeline dot */}
-                  <div
-                    className={`absolute left-0 top-1.5 h-4 w-4 rounded-full border-2 md:h-5 md:w-5 ${
-                      i === 0
-                        ? "border-accent bg-accent/20 shadow-[0_0_12px_rgba(139,69,19,0.25)]"
-                        : "border-border bg-surface"
-                    }`}
-                  />
-                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                    <div>
-                      <h3 className="text-base font-semibold">{job.role}</h3>
-                      <p className="mt-0.5 flex items-center gap-1.5 text-sm text-accent">
-                        <BriefcaseIcon className="h-3.5 w-3.5" />
-                        {job.company}
-                      </p>
+                <Reveal key={i} delay={i * 100}>
+                  <div className="relative pl-10 md:pl-12">
+                    <div
+                      className={`absolute left-0 top-1.5 h-4 w-4 rounded-full border-2 md:h-5 md:w-5 ${
+                        i === 0
+                          ? "border-accent bg-accent/20"
+                          : "border-border bg-surface"
+                      }`}
+                    />
+                    <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                      <div>
+                        <h3 className="font-display text-lg font-semibold">{job.role}</h3>
+                        <p className="mt-0.5 flex items-center gap-1.5 text-sm text-accent">
+                          <BriefcaseIcon className="h-3.5 w-3.5" />
+                          {job.company}
+                        </p>
+                      </div>
+                      <span className="mt-1 font-mono text-xs text-muted sm:mt-0">
+                        {job.period}
+                      </span>
                     </div>
-                    <span className="mt-1 text-xs font-mono text-muted sm:mt-0">
-                      {job.period}
-                    </span>
+                    <ul className="mt-3 space-y-2">
+                      {job.points.map((point, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted" />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="mt-3 space-y-2">
-                    {job.points.map((point, j) => (
-                      <li
-                        key={j}
-                        className="flex items-start gap-2 text-sm text-muted-foreground"
-                      >
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted" />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <Divider />
-
       {/* ── SKILLS ── */}
-      <section id="skills" className="py-28">
+      <section id="skills" className="border-t border-border py-24 sm:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel>Skills</SectionLabel>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Tech I work with
-          </h2>
+          <Reveal>
+            <SectionLabel>04 — Skills</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+              Tech I work with
+            </h2>
+          </Reveal>
 
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-            {skillCategories.map((category) => (
-              <div key={category.name}>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
-                  {category.name}
-                </h3>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-lg border border-border bg-surface px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-accent/30 hover:text-foreground"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+          <div className="mt-14 flex flex-col gap-10">
+            {skillCategories.map((category, i) => (
+              <Reveal key={category.name} delay={i * 60}>
+                <div className="grid gap-4 border-t border-border pt-8 lg:grid-cols-4">
+                  <h3 className="font-mono text-xs font-semibold uppercase tracking-[2px] text-accent">
+                    {category.name}
+                  </h3>
+                  <div className="flex flex-wrap gap-2 lg:col-span-3">
+                    {category.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-accent/40 hover:text-foreground"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <Divider />
-
       {/* ── CERTIFICATIONS ── */}
-      <section id="certifications" className="py-28">
+      <section id="certifications" className="border-t border-border py-24 sm:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <SectionLabel>Certifications</SectionLabel>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Credentials & courses
-          </h2>
+          <Reveal>
+            <SectionLabel>05 — Certifications</SectionLabel>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+              Credentials & courses
+            </h2>
+          </Reveal>
 
-          <CertificationsGrid certifications={certifications} />
+          <Reveal delay={100}>
+            <CertificationsGrid certifications={certifications} />
+          </Reveal>
         </div>
       </section>
 
-      <Divider />
-
       {/* ── CONTACT ── */}
-      <section id="contact" className="py-28">
+      <section id="contact" className="border-t border-border py-24 sm:py-28">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="mx-auto max-w-xl text-center">
-            <SectionLabel center>Contact</SectionLabel>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Let&apos;s work together
-            </h2>
-            <p className="mt-4 text-[15px] text-muted-foreground">
-              Have a project in mind or just want to chat? Drop me a message and
-              I&apos;ll get back to you.
-            </p>
-          </div>
-
-          <div className="mx-auto mt-12 max-w-lg">
-            <ContactForm />
-
-            <div className="mt-10 flex items-center justify-center gap-5">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
-                >
-                  <social.icon className="h-4 w-4" />
-                  {social.label}
-                </a>
-              ))}
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel center>06 — Contact</SectionLabel>
+              <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-6xl">
+                Let&apos;s work{" "}
+                <span className="italic text-accent">together.</span>
+              </h2>
+              <p className="mt-5 text-[15px] text-muted-foreground">
+                Have a project in mind or just want to chat? Drop me a message and
+                I&apos;ll get back to you.
+              </p>
             </div>
-          </div>
+          </Reveal>
+
+          <Reveal delay={150}>
+            <div className="mx-auto mt-12 max-w-lg">
+              <ContactForm />
+
+              <div className="mt-10 flex items-center justify-center gap-6">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-underline inline-flex items-center gap-2 pb-0.5 text-sm text-muted-foreground transition-colors hover:text-accent"
+                  >
+                    <social.icon className="h-4 w-4" />
+                    {social.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
       <footer className="border-t border-border py-8">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
-          <span className="text-xs text-muted">
+          <span className="font-mono text-xs text-muted">
             &copy; {new Date().getFullYear()} Tiea. All rights reserved.
           </span>
-          <span className="text-xs text-muted">
+          <span className="font-mono text-xs text-muted">
             Designed & built by Tiea
           </span>
         </div>
@@ -518,17 +566,9 @@ export default function Home() {
 function SectionLabel({ children, center }: { children: React.ReactNode; center?: boolean }) {
   return (
     <span
-      className={`inline-block text-sm font-semibold uppercase tracking-[3px] text-accent ${center ? "mx-auto block text-center" : ""}`}
+      className={`inline-block font-mono text-xs font-semibold uppercase tracking-[3px] text-accent ${center ? "mx-auto block text-center" : ""}`}
     >
       {children}
     </span>
-  );
-}
-
-function Divider() {
-  return (
-    <div className="mx-auto max-w-6xl px-6">
-      <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-    </div>
   );
 }
